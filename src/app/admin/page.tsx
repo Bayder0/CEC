@@ -103,25 +103,25 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-lg shadow-xl p-8 border-2 border-primary-red/30">
-            <div className="flex justify-between items-center mb-8">
+      <main className="flex-grow py-6 md:py-12 bg-gray-50">
+        <div className="container mx-auto px-3 md:px-4">
+          <div className="bg-white rounded-lg shadow-xl p-4 md:p-8 border-2 border-primary-red/30">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 md:mb-8">
               <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">لوحة التحكم - إدارة الدورات</h1>
-                <p className="text-sm text-gray-500">Designed and created by Bayder Bassim</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">لوحة التحكم - إدارة الدورات</h1>
+                <p className="text-xs md:text-sm text-gray-500">Designed and created by Bayder Bassim</p>
               </div>
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="bg-primary-red text-white px-6 py-3 rounded-lg hover:bg-primary-red/90 transition font-semibold shadow-md"
+                className="w-full md:w-auto bg-primary-red text-white px-6 py-3 rounded-lg hover:bg-primary-red/90 transition font-semibold shadow-md text-sm md:text-base"
               >
                 {showForm ? 'إلغاء' : 'إضافة دورة جديدة'}
               </button>
             </div>
 
             {showForm && (
-              <form onSubmit={handleSubmit} className="mb-8 bg-gray-50 p-6 rounded-lg border-2 border-primary-red/30">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">إضافة دورة جديدة</h2>
+              <form onSubmit={handleSubmit} className="mb-8 bg-gray-50 p-4 md:p-6 rounded-lg border-2 border-primary-red/30">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6">إضافة دورة جديدة</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-gray-700 font-semibold mb-2">عنوان الدورة *</label>
@@ -271,7 +271,7 @@ export default function AdminPage() {
             )}
 
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">الدورات الحالية ({courses.length})</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6">الدورات الحالية ({courses.length})</h2>
               {loading ? (
                 <p className="text-gray-600">جاري التحميل...</p>
               ) : courses.length === 0 ? (
@@ -281,24 +281,32 @@ export default function AdminPage() {
                   {courses.map((course) => (
                     <div
                       key={course.id}
-                      className="bg-white border-2 border-gray-200 rounded-lg p-6 hover:shadow-lg transition hover:border-primary-red"
+                      className="bg-white border-2 border-gray-200 rounded-lg p-4 md:p-6 hover:shadow-lg transition hover:border-primary-red"
                     >
-                      <div className="flex justify-between items-start">
-                        <div className="flex-grow">
-                          <h3 className="text-xl font-bold text-gray-800 mb-2">{course.title}</h3>
-                          <p className="text-gray-600 mb-2">{course.category}</p>
-                          <p className="text-gray-700">{course.description.substring(0, 150)}...</p>
-                          <div className="mt-3 flex items-center space-x-4 space-x-reverse text-sm text-gray-600">
-                            <span>المدرب: {course.instructor}</span>
-                            <span>•</span>
-                            <span>{course.location}</span>
-                            <span>•</span>
-                            <span className="font-bold text-primary-red">{course.price.toLocaleString()} دينار</span>
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                        <div className="flex-grow w-full">
+                          <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2 break-words">{course.title}</h3>
+                          <p className="text-sm md:text-base text-primary-red font-semibold mb-2">{course.category}</p>
+                          <p className="text-sm md:text-base text-gray-700 mb-3 line-clamp-2 break-words">{course.description}</p>
+                          <div className="mt-3 flex flex-col md:flex-row md:items-center gap-2 md:gap-4 md:space-x-reverse text-xs md:text-sm text-gray-600">
+                            <span className="flex items-center gap-1">
+                              <span className="font-semibold">المدرب:</span>
+                              <span>{course.instructor}</span>
+                            </span>
+                            <span className="hidden md:inline">•</span>
+                            <span className="flex items-center gap-1 break-words">
+                              <span className="font-semibold">الموقع:</span>
+                              <span>{course.location}</span>
+                            </span>
+                            <span className="hidden md:inline">•</span>
+                            <span className="font-bold text-primary-red">
+                              {course.price.toLocaleString()} دينار
+                            </span>
                           </div>
                         </div>
                         <button
                           onClick={() => router.push(`/courses/${course.id}`)}
-                          className="ml-4 bg-primary-red text-white px-4 py-2 rounded-lg hover:bg-primary-red/90 transition text-sm shadow-md"
+                          className="w-full md:w-auto bg-primary-red text-white px-6 py-3 rounded-lg hover:bg-primary-red/90 transition text-sm font-semibold shadow-md"
                         >
                           عرض التفاصيل
                         </button>
