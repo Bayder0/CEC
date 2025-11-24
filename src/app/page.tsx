@@ -11,15 +11,15 @@ export default function Home() {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-red via-red-600 to-red-700 text-white py-12">
+        <section className="bg-gradient-to-br from-primary-red via-red-600 to-red-700 text-white py-10 md:py-12">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-5xl font-bold mb-4">مركز التعليم المستمر</h1>
-              <p className="text-2xl mb-4 font-semibold text-red-100">جامعة النهرين</p>
-              <p className="text-lg text-red-50 leading-relaxed mb-4">
+              <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">مركز التعليم المستمر</h1>
+              <p className="text-xl md:text-2xl mb-4 md:mb-5 font-semibold text-red-100">جامعة النهرين</p>
+              <p className="text-base md:text-lg text-red-50 leading-relaxed mb-4 md:mb-5 px-2">
                 نوفر لكم مجموعة متنوعة من الدورات التدريبية المتخصصة لتطوير مهاراتكم التقنية والمعرفية
               </p>
-              <p className="text-sm text-red-200 mt-6">
+              <p className="text-xs md:text-sm text-red-200 mt-5 md:mt-6">
                 Designed and created by Bayder Bassim
               </p>
             </div>
