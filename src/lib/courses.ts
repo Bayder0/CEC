@@ -1,0 +1,145 @@
+import { Course } from '@/types/course';
+import fs from 'fs';
+import path from 'path';
+
+const dataDirectory = path.join(process.cwd(), 'data');
+const filePath = path.join(dataDirectory, 'courses.json');
+
+// Ensure data directory exists
+function ensureDataDirectory(): void {
+  if (!fs.existsSync(dataDirectory)) {
+    fs.mkdirSync(dataDirectory, { recursive: true });
+  }
+}
+
+// Read courses from JSON file
+export function getCourses(): Course[] {
+  ensureDataDirectory();
+  
+  if (!fs.existsSync(filePath)) {
+    // Initialize with sample courses
+    const sampleCourses: Course[] = [
+      {
+        id: '1',
+        title: 'دورة Microsoft Excel المتقدمة',
+        description: 'تعلم المهارات المتقدمة في استخدام Microsoft Excel بما في ذلك الصيغ المعقدة، الجداول المحورية، والمخططات البيانية. هذه الدورة مثالية للطلاب الذين يرغبون في تطوير مهاراتهم في تحليل البيانات.',
+        location: 'مبنى 3 - القاعة 201',
+        price: 5000,
+        duration: '6 أسابيع',
+        instructor: 'د. أحمد محمد',
+        startDate: '2024-03-01',
+        schedule: 'السبت والثلاثاء من 2:00 مساءً إلى 4:00 مساءً',
+        maxStudents: 30,
+        prerequisites: 'معرفة أساسية بـ Excel',
+        category: 'مهارات الحاسوب',
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '2',
+        title: 'دورة Machine Learning و Deep Learning',
+        description: 'دورة شاملة تغطي أساسيات التعلم الآلي والتعلم العميق باستخدام Python و TensorFlow. سيتعلم الطلاب كيفية بناء نماذج ذكية وتحليل البيانات المعقدة.',
+        location: 'مبنى 5 - مختبر الحاسوب 1',
+        price: 12000,
+        duration: '10 أسابيع',
+        instructor: 'د. سارة علي',
+        startDate: '2024-03-05',
+        schedule: 'الأحد والأربعاء من 10:00 صباحاً إلى 12:00 ظهراً',
+        maxStudents: 25,
+        prerequisites: 'معرفة بـ Python وبرمجة أساسية',
+        category: 'الذكاء الاصطناعي',
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '3',
+        title: 'دورة تطوير تطبيقات الويب',
+        description: 'تعلم كيفية بناء تطبيقات ويب حديثة باستخدام React و Node.js. تغطي الدورة التصميم الأمامي والخلفي، قواعد البيانات، ونشر التطبيقات.',
+        location: 'مبنى 3 - القاعة 305',
+        price: 8000,
+        duration: '8 أسابيع',
+        instructor: 'م. خالد حسن',
+        startDate: '2024-03-10',
+        schedule: 'الإثنين والخميس من 4:00 مساءً إلى 6:00 مساءً',
+        maxStudents: 35,
+        prerequisites: 'معرفة أساسية بـ JavaScript',
+        category: 'تطوير الويب',
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '4',
+        title: 'دورة أمن المعلومات',
+        description: 'استكشف أساسيات أمن المعلومات، تشفير البيانات، اختبار الاختراق، والحماية من الهجمات السيبرانية. دورة عملية مع مشاريع واقعية.',
+        location: 'مبنى 5 - مختبر الأمن السيبراني',
+        price: 9000,
+        duration: '7 أسابيع',
+        instructor: 'د. فاطمة عبدالله',
+        startDate: '2024-03-15',
+        schedule: 'الثلاثاء والجمعة من 1:00 ظهراً إلى 3:00 مساءً',
+        maxStudents: 28,
+        prerequisites: 'معرفة أساسية بالشبكات',
+        category: 'الأمن السيبراني',
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '5',
+        title: 'دورة Python للمبتدئين',
+        description: 'دورة شاملة لتعلم برمجة Python من الصفر. تغطي الأساسيات، هياكل البيانات، البرمجة الكائنية، ومعالجة الملفات. مثالية للطلاب الجدد في البرمجة.',
+        location: 'مبنى 3 - القاعة 102',
+        price: 6000,
+        duration: '5 أسابيع',
+        instructor: 'م. محمد رضا',
+        startDate: '2024-03-20',
+        schedule: 'السبت والأربعاء من 3:00 مساءً إلى 5:00 مساءً',
+        maxStudents: 40,
+        prerequisites: 'لا توجد متطلبات مسبقة',
+        category: 'البرمجة',
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '6',
+        title: 'دورة إدارة قواعد البيانات SQL',
+        description: 'تعلم تصميم وإدارة قواعد البيانات باستخدام SQL و MySQL. تغطي الاستعلامات المعقدة، الفهارس، التحسين، والأمان.',
+        location: 'مبنى 4 - مختبر قواعد البيانات',
+        price: 7000,
+        duration: '6 أسابيع',
+        instructor: 'د. علي كريم',
+        startDate: '2024-04-01',
+        schedule: 'الأحد والثلاثاء من 11:00 صباحاً إلى 1:00 ظهراً',
+        maxStudents: 32,
+        prerequisites: 'معرفة أساسية بالحاسوب',
+        category: 'قواعد البيانات',
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    fs.writeFileSync(filePath, JSON.stringify(sampleCourses, null, 2), 'utf-8');
+    return sampleCourses;
+  }
+  
+  const fileContents = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(fileContents) as Course[];
+}
+
+// Save courses to JSON file
+export function saveCourses(courses: Course[]): void {
+  ensureDataDirectory();
+  fs.writeFileSync(filePath, JSON.stringify(courses, null, 2), 'utf-8');
+}
+
+// Add a new course
+export function addCourse(course: Omit<Course, 'id' | 'createdAt'>): Course {
+  const courses = getCourses();
+  const newCourse: Course = {
+    ...course,
+    id: Date.now().toString(),
+    createdAt: new Date().toISOString(),
+  };
+  courses.push(newCourse);
+  saveCourses(courses);
+  return newCourse;
+}
+
+// Get a course by ID
+export function getCourseById(id: string): Course | undefined {
+  const courses = getCourses();
+  return courses.find(course => course.id === id);
+}
+
